@@ -1,0 +1,25 @@
+
+> nextn@0.1.0 dev
+> next dev --turbopack
+
+ ⚠ Port 3000 is in use, using available port 3001 instead.
+   ▲ Next.js 15.3.3 (Turbopack)
+   - Local:        http://localhost:3001
+   - Network:      http://10.10.50.121:3001
+   - Environments: .env.local
+
+ ✓ Starting...
+Slow filesystem detected. If /Users/macpro/Documents/BACKUP/EM PRODUCAO/PrevendasSemLogin_Simuladores_final-main/.next is a network drive, consider moving it to a local folder. If you have an antivirus enabled, consider excluding your project directory.
+ ○ Compiling middleware ...
+ ✓ Compiled middleware in 8.2s
+ ✓ Ready in 45.9s
+ ⚠ Webpack is configured while Turbopack is not, which may cause problems.
+ ⚠ See instructions if you need to configure Turbopack:
+  https://nextjs.org/docs/app/api-reference/next-config-js/turbo
+
+ ○ Compiling /api/auth/login ...
+ ✓ Compiled /api/auth/login in 29s
+ POST /api/auth/login 200 in 52336ms
+ POST /api/auth/login 401 in 5335ms
+ POST /api/auth/login 200 in 4391ms
+ POST /api/auth/login 200 in 2742ms
