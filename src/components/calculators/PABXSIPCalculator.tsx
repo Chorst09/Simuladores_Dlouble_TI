@@ -1069,7 +1069,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
 
         // Mudar para a tela de calculadora para permitir edição
         setCurrentView('calculator');
-        setActiveTab('negotiations'); // Direcionar para a aba de Rodadas de Negociação
+        setActiveTab('calculator'); // Direcionar para a aba da calculadora
     };
 
     const handleDeleteProposal = (proposal: Proposal) => {

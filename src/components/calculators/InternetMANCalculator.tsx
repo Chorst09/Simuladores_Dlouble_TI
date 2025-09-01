@@ -367,9 +367,7 @@ const InternetMANCalculator: React.FC<InternetMANCalculatorProps> = ({
 
     // Handlers para ações das propostas
     const handleEditProposal = (proposal: Proposal) => {
-        setSelectedProposal(proposal);
-        setCurrentProposal(proposal);
-        setShowNegotiationRounds(true);
+        editProposal(proposal);
     };
 
     const handleDeleteProposal = (proposal: Proposal) => {
