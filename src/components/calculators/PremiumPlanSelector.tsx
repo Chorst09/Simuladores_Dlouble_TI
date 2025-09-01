@@ -54,7 +54,7 @@ export const PremiumPlanSelector: React.FC<PremiumPlanSelectorProps> = ({
       </CardHeader>
       <CardContent className="space-y-3">
         <RadioGroup
-          value={selectedPlan || ''}
+          value={selectedPlan ?? ''}
           onValueChange={(value) => onPlanChange(value as 'essencial' | 'professional')}
           disabled={disabled}
           className="space-y-3"

@@ -54,7 +54,7 @@ export const BillingTypeSelector: React.FC<BillingTypeSelectorProps> = ({
       </CardHeader>
       <CardContent className="space-y-3">
         <RadioGroup
-          value={selectedType || ''}
+          value={selectedType ?? ''}
           onValueChange={(value) => onTypeChange(value as 'ilimitado-sem-aparelho' | 'ilimitado-com-aparelho' | 'tarifado-sem-aparelho' | 'tarifado-com-aparelho')}
           disabled={disabled}
           className="space-y-3"

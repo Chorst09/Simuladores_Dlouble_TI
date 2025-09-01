@@ -277,12 +277,20 @@ const InternetMANCalculator: React.FC<InternetMANCalculatorProps> = ({
 
     // Funções de cálculo
     const getMonthlyPrice = (plan: InternetPlan, term: number): number => {
+        let basePrice: number;
         switch (term) {
-            case 12: return plan.price12;
-            case 24: return plan.price24;
-            case 36: return plan.price36;
-            default: return plan.price36;
+            case 12: basePrice = plan.price12; break;
+            case 24: basePrice = plan.price24; break;
+            case 36: basePrice = plan.price36; break;
+            default: basePrice = plan.price36; break;
         }
+        
+        // Apply 20% markup if partner indicator is enabled
+        if (hasPartnerIndicator) {
+            basePrice = basePrice * 1.2;
+        }
+        
+        return basePrice;
     };
 
     const getInstallationCost = (speed: number): number => {

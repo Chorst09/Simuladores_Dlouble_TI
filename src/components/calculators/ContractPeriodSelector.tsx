@@ -36,7 +36,7 @@ export const ContractPeriodSelector: React.FC<ContractPeriodSelectorProps> = ({
       </CardHeader>
       <CardContent className="space-y-3">
         <RadioGroup
-          value={selectedPeriod || ''}
+          value={selectedPeriod ?? ''}
           onValueChange={(value) => onPeriodChange(value as '24' | '36')}
           disabled={disabled}
           className="space-y-3"

@@ -49,6 +49,12 @@ interface ContractTerm {
     paybackMonths: number;
 }
 
+interface InstallationTier {
+    minValue: number;
+    maxValue: number;
+    cost: number;
+}
+
 interface DoubleRadioFibraCalculatorProps {
     userRole?: 'admin' | 'user' | 'diretor';
     onBackToPanel?: () => void;
@@ -155,8 +161,16 @@ const DoubleRadioFibraCalculator: React.FC<DoubleRadioFibraCalculatorProps> = ({
             case 60: basePrice = plan.price36; break; // Use 36-month price for 60 months
             default: basePrice = plan.price36; break;
         }
+        
         // Apply 2x multiplier for Double-Radio+Fibra
-        return basePrice * 2;
+        let finalPrice = basePrice * 2;
+        
+        // Apply 20% markup if partner indicator is enabled
+        if (hasPartnerIndicator) {
+            finalPrice = finalPrice * 1.2;
+        }
+        
+        return finalPrice;
     };
 
     const getInstallationCost = (speed: number): number => {
