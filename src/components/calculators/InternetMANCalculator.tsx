@@ -663,6 +663,84 @@ const InternetMANCalculator: React.FC<InternetMANCalculatorProps> = ({
                                                 <Label htmlFor="includeInstallation">Incluir taxa de instalação</Label>
                                             </div>
 
+                                            <div className="flex items-center space-x-2 pt-2">
+                                                <Checkbox
+                                                    id="isExistingClient"
+                                                    checked={isExistingClient}
+                                                    onCheckedChange={(checked) => setIsExistingClient(!!checked)}
+                                                    className="border-white"
+                                                />
+                                                <label htmlFor="isExistingClient" className="text-sm font-medium leading-none">
+                                                    Já é cliente da base?
+                                                </label>
+                                            </div>
+
+                                            {isExistingClient && (
+                                                <div className="space-y-4">
+                                                    <div>
+                                                        <Label htmlFor="previousMonthlyFee">Mensalidade Anterior</Label>
+                                                        <Input
+                                                            id="previousMonthlyFee"
+                                                            type="number"
+                                                            placeholder="R$ 0,00"
+                                                            value={previousMonthlyFee}
+                                                            onChange={(e) => setPreviousMonthlyFee(Number(e.target.value))}
+                                                            className="bg-slate-700 border-slate-600"
+                                                        />
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            <div className="flex items-center space-x-2 pt-2">
+                                                <Checkbox
+                                                    id="hasLastMile"
+                                                    checked={hasLastMile}
+                                                    onCheckedChange={(checked) => setHasLastMile(!!checked)}
+                                                    className="border-white"
+                                                />
+                                                <label htmlFor="hasLastMile" className="text-sm font-medium leading-none">
+                                                    Last Mile?
+                                                </label>
+                                            </div>
+
+                                            {hasLastMile && (
+                                                <div>
+                                                    <Label htmlFor="lastMileCost">Custo (Last Mile)</Label>
+                                                    <Input
+                                                        id="lastMileCost"
+                                                        type="number"
+                                                        placeholder="R$ 0,00"
+                                                        value={lastMileCost}
+                                                        onChange={(e) => setLastMileCost(Number(e.target.value))}
+                                                        className="bg-slate-700 border-slate-600"
+                                                    />
+                                                </div>
+                                            )}
+
+                                            <div className="flex items-center space-x-2 pt-2">
+                                                <Checkbox
+                                                    id="hasPartnerIndicator"
+                                                    checked={hasPartnerIndicator}
+                                                    onCheckedChange={(checked) => setHasPartnerIndicator(!!checked)}
+                                                    className="border-white"
+                                                />
+                                                <label htmlFor="hasPartnerIndicator" className="text-sm font-medium leading-none">
+                                                    PARCEIRO INDICADOR
+                                                </label>
+                                            </div>
+
+                                            <div>
+                                                <Label htmlFor="project-value">Valor do Projeto (opcional)</Label>
+                                                <Input 
+                                                    id="project-value" 
+                                                    type="number" 
+                                                    value={projectValue || ''} 
+                                                    onChange={(e) => setProjectValue(Number(e.target.value))} 
+                                                    className="bg-slate-700" 
+                                                    placeholder="Para cálculo da taxa de instalação"
+                                                />
+                                            </div>
+
                                             {result && (
                                                 <div className="mt-4 p-4 bg-slate-800 rounded-lg">
                                                     <h3 className="text-lg font-semibold mb-2">Resultado do Cálculo</h3>
