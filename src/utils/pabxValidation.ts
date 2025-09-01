@@ -13,6 +13,7 @@ export interface PABXValidationContext {
   modality: 'standard' | 'premium';
   premiumPlan: 'essencial' | 'professional' | null;
   premiumBillingType: 'ilimitado-sem-aparelho' | 'ilimitado-com-aparelho' | 'tarifado-sem-aparelho' | 'tarifado-com-aparelho' | null;
+  contractPeriod: '24' | '36' | null;
   extensions: number;
 }
 
@@ -23,6 +24,7 @@ export const validationMessages = {
   noModalitySelected: "Selecione uma modalidade (Standard ou Premium)",
   noPremiumPlanSelected: "Selecione um plano Premium (Essencial ou Professional)",
   noBillingTypeSelected: "Selecione o tipo de cobrança (Ilimitado ou Tarifado)",
+  noContractPeriodSelected: "Selecione o período do contrato (24 ou 36 meses)",
   priceNotAvailable: "Preço não disponível para esta configuração. Entre em contato.",
   aCombinarWarning: "Alguns valores são 'a combinar' para esta quantidade de ramais. Entre em contato para orçamento personalizado.",
   invalidExtensionCount: "Número de ramais deve ser maior que zero",
@@ -49,6 +51,10 @@ export function validatePABXSelection(context: PABXValidationContext): Validatio
     
     if (!context.premiumBillingType) {
       errors.push(validationMessages.noBillingTypeSelected);
+    }
+    
+    if (!context.contractPeriod) {
+      errors.push(validationMessages.noContractPeriodSelected);
     }
   }
 

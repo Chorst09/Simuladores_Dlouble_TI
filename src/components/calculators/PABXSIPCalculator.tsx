@@ -30,6 +30,7 @@ import NovaPropostaModal from './NovaPropostaModal';
 import { PlanModalitySelector } from './PlanModalitySelector';
 import { PremiumPlanSelector } from './PremiumPlanSelector';
 import { BillingTypeSelector } from './BillingTypeSelector';
+import { ContractPeriodSelector } from './ContractPeriodSelector';
 
 import { validateCalculationReadiness, validatePriceAvailability, createValidationState, PABXValidationContext } from '@/utils/pabxValidation';
 import { ValidationSummary } from './shared/ValidationSummary';
@@ -66,6 +67,7 @@ const ensurePABXConfigCompatibility = (item: ProposalItem): ProposalItem => {
                 modality: item.details.modality || 'standard',
                 premiumPlan: item.details.premiumPlan || null,
                 premiumBillingType: item.details.premiumBillingType || null,
+                contractPeriod: item.details.contractPeriod || null,
             }
         };
     }
@@ -179,11 +181,13 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
             }
             setPremiumPlan(pabxConfig.premiumPlan || pabxConfig.premium_plan || null);
             setPremiumBillingType(pabxConfig.premiumBillingType || pabxConfig.premium_billing_type || null);
+            setPremiumContractPeriod(pabxConfig.contractPeriod || pabxConfig.contract_period || null);
         } else {
             // Reset para valores padrão se não houver configuração
             setPabxModality('standard');
             setPremiumPlan(null);
             setPremiumBillingType(null);
+            setPremiumContractPeriod(null);
         }
 
         // Abrir modal com dados preenchidos
@@ -214,6 +218,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
     const [pabxModality, setPabxModality] = useState<'standard' | 'premium'>('standard');
     const [premiumPlan, setPremiumPlan] = useState<'essencial' | 'professional' | null>(null);
     const [premiumBillingType, setPremiumBillingType] = useState<'ilimitado-sem-aparelho' | 'ilimitado-com-aparelho' | 'tarifado-sem-aparelho' | 'tarifado-com-aparelho' | null>(null);
+    const [premiumContractPeriod, setPremiumContractPeriod] = useState<'24' | '36' | null>(null);
 
     
 
@@ -493,6 +498,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
             modality: pabxModality,
             premiumPlan: premiumPlan,
             premiumBillingType: premiumBillingType,
+            contractPeriod: premiumContractPeriod,
             extensions: pabxExtensions
         };
 
@@ -511,9 +517,9 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
         let baseMonthly = 0;
         let deviceRentalCost = 0;
 
-        if (pabxModality === 'premium' && premiumPlan && premiumBillingType) {
+        if (pabxModality === 'premium' && premiumPlan && premiumBillingType && premiumContractPeriod) {
             // Use Premium pricing
-            const contractPeriod = '36'; // Default to 36 months, could be made configurable
+            const contractPeriod = premiumContractPeriod;
             const premiumRange = getPremiumPriceRange(pabxExtensions);
             
             // Extract base plan type and equipment option from billing type
@@ -613,11 +619,13 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                 modality: pabxModality,
                 premiumPlan: premiumPlan,
                 premiumBillingType: premiumBillingType,
+                contractPeriod: premiumContractPeriod,
             },
             details: {
                 modality: pabxModality,
                 premiumPlan: premiumPlan,
                 premiumBillingType: premiumBillingType,
+                contractPeriod: premiumContractPeriod,
                 extensions: pabxExtensions,
                 includeSetup: pabxIncludeSetup,
                 includeDevices: pabxIncludeDevices,
@@ -759,6 +767,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                     modality: pabxModality,
                     premiumPlan: premiumPlan,
                     premiumBillingType: premiumBillingType,
+                    contractPeriod: premiumContractPeriod,
                     extensions: pabxExtensions,
                     includeSetup: pabxIncludeSetup,
                     includeDevices: pabxIncludeDevices,
@@ -977,7 +986,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
     // Calcular automaticamente quando os valores mudarem
     useEffect(() => {
         calculatePABX();
-    }, [pabxExtensions, pabxIncludeSetup, pabxIncludeDevices, pabxDeviceQuantity, pabxIncludeAI, pabxAIPlan, pabxModality, premiumPlan, premiumBillingType]);
+    }, [pabxExtensions, pabxIncludeSetup, pabxIncludeDevices, pabxDeviceQuantity, pabxIncludeAI, pabxAIPlan, pabxModality, premiumPlan, premiumBillingType, premiumContractPeriod]);
 
     useEffect(() => {
         calculateSIP();
@@ -1049,11 +1058,13 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
             }
             setPremiumPlan(pabxConfig.premiumPlan || pabxConfig.premium_plan || null);
             setPremiumBillingType(pabxConfig.premiumBillingType || pabxConfig.premium_billing_type || null);
+            setPremiumContractPeriod(pabxConfig.contractPeriod || pabxConfig.contract_period || null);
         } else {
             // Reset para valores padrão se não houver configuração
             setPabxModality('standard');
             setPremiumPlan(null);
             setPremiumBillingType(null);
+            setPremiumContractPeriod(null);
         }
 
         // Mudar para a tela de calculadora para permitir edição
@@ -1572,6 +1583,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                                 if (modality === 'standard') {
                                                     setPremiumPlan(null);
                                                     setPremiumBillingType(null);
+                                                    setPremiumContractPeriod(null);
                                                 }
                                             }}
                                             premiumPlan={premiumPlan}
@@ -1600,10 +1612,24 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                                 {premiumPlan && (
                                                     <BillingTypeSelector
                                                         selectedType={premiumBillingType}
-                                                        onTypeChange={setPremiumBillingType}
+                                                        onTypeChange={(type) => {
+                                                            setPremiumBillingType(type);
+                                                            // Reset contract period when billing type changes
+                                                            setPremiumContractPeriod(null);
+                                                        }}
                                                         visible={true}
                                                         premiumPlan={premiumPlan}
                                                         extensions={pabxExtensions}
+                                                        showValidation={true}
+                                                    />
+                                                )}
+
+                                                {/* Contract Period Selection - Only show when billing type is selected */}
+                                                {premiumPlan && premiumBillingType && (
+                                                    <ContractPeriodSelector
+                                                        selectedPeriod={premiumContractPeriod}
+                                                        onPeriodChange={setPremiumContractPeriod}
+                                                        visible={true}
                                                         showValidation={true}
                                                     />
                                                 )}
