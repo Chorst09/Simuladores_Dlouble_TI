@@ -1255,7 +1255,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                 <Label htmlFor="client-name">Nome do Cliente *</Label>
                                 <Input
                                     id="client-name"
-                                    value={clientData.name}
+                                    value={clientData.name || ''}
                                     onChange={(e) => setClientData(prev => ({ ...prev, name: e.target.value }))}
                                     className="bg-slate-800 border-slate-700 text-white"
                                     placeholder="Nome completo do cliente"
@@ -1266,7 +1266,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                 <Label htmlFor="project-name">Nome do Projeto</Label>
                                 <Input
                                     id="project-name"
-                                    value={clientData.projectName}
+                                    value={clientData.projectName || ''}
                                     onChange={(e) => setClientData(prev => ({ ...prev, projectName: e.target.value }))}
                                     className="bg-slate-800 border-slate-700 text-white"
                                     placeholder="Nome do projeto"
@@ -1277,7 +1277,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                 <Input
                                     id="client-email"
                                     type="email"
-                                    value={clientData.email}
+                                    value={clientData.email || ''}
                                     onChange={(e) => setClientData(prev => ({ ...prev, email: e.target.value }))}
                                     className="bg-slate-800 border-slate-700 text-white"
                                     placeholder="email@cliente.com"
@@ -1288,7 +1288,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                 <Label htmlFor="client-phone">Telefone do Cliente</Label>
                                 <Input
                                     id="client-phone"
-                                    value={clientData.phone}
+                                    value={clientData.phone || ''}
                                     onChange={(e) => setClientData(prev => ({ ...prev, phone: e.target.value }))}
                                     className="bg-slate-800 border-slate-700 text-white"
                                     placeholder="(11) 99999-9999"
@@ -1307,7 +1307,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                 <Label htmlFor="manager-name">Nome do Gerente *</Label>
                                 <Input
                                     id="manager-name"
-                                    value={accountManagerData.name}
+                                    value={accountManagerData.name || ''}
                                     onChange={(e) => setAccountManagerData(prev => ({ ...prev, name: e.target.value }))}
                                     className="bg-slate-800 border-slate-700 text-white"
                                     placeholder="Nome completo do gerente"
@@ -1319,7 +1319,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                 <Input
                                     id="manager-email"
                                     type="email"
-                                    value={accountManagerData.email}
+                                    value={accountManagerData.email || ''}
                                     onChange={(e) => setAccountManagerData(prev => ({ ...prev, email: e.target.value }))}
                                     className="bg-slate-800 border-slate-700 text-white"
                                     placeholder="gerente@empresa.com"
@@ -1330,7 +1330,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                 <Label htmlFor="manager-phone">Telefone do Gerente</Label>
                                 <Input
                                     id="manager-phone"
-                                    value={accountManagerData.phone}
+                                    value={accountManagerData.phone || ''}
                                     onChange={(e) => setAccountManagerData(prev => ({ ...prev, phone: e.target.value }))}
                                     className="bg-slate-800 border-slate-700 text-white"
                                     placeholder="(11) 99999-9999"
@@ -1381,7 +1381,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                 <Input
                                     type="text"
                                     placeholder="Buscar por cliente ou ID..."
-                                    value={searchTerm}
+                                    value={searchTerm || ''}
                                     onChange={(e) => setSearchTerm(e.target.value)}
                                     className="bg-slate-800 border-slate-700 text-white placeholder-slate-400"
                                 />
@@ -1657,7 +1657,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                                 <Input
                                                     id="pabx-extensions"
                                                     type="number"
-                                                    value={pabxExtensions}
+                                                    value={pabxExtensions || 0}
                                                     onChange={(e) => setPabxExtensions(parseInt(e.target.value) || 0)}
                                                     className="bg-slate-800 border-slate-700 text-white mt-1"
                                                     placeholder="Ex: 32"
@@ -1692,7 +1692,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                                     <Input
                                                         id="pabx-device-quantity"
                                                         type="number"
-                                                        value={pabxDeviceQuantity}
+                                                        value={pabxDeviceQuantity || 0}
                                                         onChange={(e) => setPabxDeviceQuantity(parseInt(e.target.value) || 0)}
                                                         className="bg-slate-800 border-slate-700 text-white mt-1 max-w-32"
                                                         placeholder="Ex: 5"
@@ -1902,7 +1902,7 @@ const PABXSIPCalculator: React.FC<PABXSIPCalculatorProps> = ({ userRole, onBackT
                                         <Input
                                             id="sip-additional-channels"
                                             type="number"
-                                            value={sipAdditionalChannels}
+                                            value={sipAdditionalChannels || 0}
                                             onChange={(e) => setSipAdditionalChannels(parseInt(e.target.value) || 0)}
                                             className="bg-slate-800 border-slate-700 text-white"
                                         />

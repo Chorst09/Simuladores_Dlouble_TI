@@ -281,12 +281,20 @@ const FiberLinkCalculator: React.FC<FiberLinkCalculatorProps> = ({
 
   // Funções de cálculo
   const getMonthlyPrice = (plan: FiberPlan, term: number): number => {
+    let basePrice: number;
     switch (term) {
-      case 12: return plan.price12;
-      case 24: return plan.price24;
-      case 36: return plan.price36;
-      default: return plan.price36;
+      case 12: basePrice = plan.price12; break;
+      case 24: basePrice = plan.price24; break;
+      case 36: basePrice = plan.price36; break;
+      default: basePrice = plan.price36; break;
     }
+    
+    // Apply 20% markup if partner indicator is enabled
+    if (hasPartnerIndicator) {
+      basePrice = basePrice * 1.2;
+    }
+    
+    return basePrice;
   };
 
   const getInstallationCost = (speed: number): number => {
@@ -330,6 +338,13 @@ const FiberLinkCalculator: React.FC<FiberLinkCalculatorProps> = ({
     return `R$ ${value.toFixed(2).replace('.', ',')}`;
   };
   const generateUniqueId = () => `_${Math.random().toString(36).substr(2, 9)}`;
+
+  // Variáveis calculadas
+  const totalSetup = addedProducts.reduce((acc, product) => acc + (product.setup || 0), 0);
+  const totalMonthly = addedProducts.reduce((acc, product) => acc + (product.monthly || 0), 0);
+  const finalTotalMonthly = directorDiscountData
+    ? directorDiscountData.discountedValue
+    : totalMonthly;
 
   // Gerenciamento de produtos
   const handleAddProduct = () => {
@@ -669,6 +684,135 @@ const FiberLinkCalculator: React.FC<FiberLinkCalculatorProps> = ({
                           </Button>
                         ))}
                       </div>
+                    </div>
+
+                    <div className="space-y-4 pt-4">
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="includeInstallation"
+                          checked={includeInstallation}
+                          onCheckedChange={(checked) => setIncludeInstallation(!!checked)}
+                          className="border-white"
+                        />
+                        <label htmlFor="includeInstallation" className="text-sm font-medium leading-none">
+                          Incluir instalação
+                        </label>
+                      </div>
+
+                      {includeInstallation && (
+                        <div>
+                          <Label htmlFor="projectValue">Valor do Projeto</Label>
+                          <Input
+                            id="projectValue"
+                            type="number"
+                            value={projectValue.toString()}
+                            onChange={(e) => setProjectValue(Number(e.target.value) || 0)}
+                            className="bg-slate-700 border-slate-600 text-white"
+                            placeholder="Digite o valor do projeto"
+                          />
+                        </div>
+                      )}
+
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="isExistingClient"
+                          checked={isExistingClient}
+                          onCheckedChange={(checked) => setIsExistingClient(!!checked)}
+                          className="border-white"
+                        />
+                        <label htmlFor="isExistingClient" className="text-sm font-medium leading-none">
+                          Já é cliente da base?
+                        </label>
+                      </div>
+
+                      {isExistingClient && (
+                        <div>
+                          <Label htmlFor="previousMonthlyFee">Mensalidade Anterior</Label>
+                          <Input
+                            id="previousMonthlyFee"
+                            type="number"
+                            value={previousMonthlyFee.toString()}
+                            onChange={(e) => setPreviousMonthlyFee(Number(e.target.value) || 0)}
+                            className="bg-slate-700 border-slate-600 text-white"
+                            placeholder="Digite a mensalidade anterior"
+                          />
+                        </div>
+                      )}
+
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="hasLastMile"
+                          checked={hasLastMile}
+                          onCheckedChange={(checked) => setHasLastMile(!!checked)}
+                          className="border-white"
+                        />
+                        <label htmlFor="hasLastMile" className="text-sm font-medium leading-none">
+                          Last Mile?
+                        </label>
+                      </div>
+
+                      {hasLastMile && (
+                        <div>
+                          <Label htmlFor="lastMileCost">Custo (Last Mile)</Label>
+                          <Input
+                            id="lastMileCost"
+                            type="number"
+                            value={lastMileCost.toString()}
+                            onChange={(e) => setLastMileCost(Number(e.target.value) || 0)}
+                            className="bg-slate-700 border-slate-600 text-white"
+                            placeholder="Digite o custo do Last Mile"
+                          />
+                        </div>
+                      )}
+
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="hasPartnerIndicator"
+                          checked={hasPartnerIndicator}
+                          onCheckedChange={(checked) => setHasPartnerIndicator(!!checked)}
+                          className="border-white"
+                        />
+                        <label htmlFor="hasPartnerIndicator" className="text-sm font-medium leading-none">
+                          PARCEIRO INDICADOR (+20%)
+                        </label>
+                      </div>
+
+                      {result && (
+                        <div className="pt-4 border-t border-slate-700">
+                          <div className="space-y-2 mb-4">
+                            <div className="flex justify-between text-sm">
+                              <span>Velocidade:</span>
+                              <span>{result.plan.description}</span>
+                            </div>
+                            <div className="flex justify-between text-sm">
+                              <span>Preço Mensal:</span>
+                              <span className={hasPartnerIndicator ? "line-through text-slate-400" : ""}>
+                                {formatCurrency(result.monthlyPrice / (hasPartnerIndicator ? 1.2 : 1))}
+                              </span>
+                            </div>
+                            {hasPartnerIndicator && (
+                              <div className="flex justify-between text-sm text-yellow-400">
+                                <span>Com Parceiro (+20%):</span>
+                                <span>{formatCurrency(result.monthlyPrice)}</span>
+                              </div>
+                            )}
+                            {includeInstallation && (
+                              <div className="flex justify-between text-sm">
+                                <span>Instalação:</span>
+                                <span>{formatCurrency(result.installationCost)}</span>
+                              </div>
+                            )}
+                          </div>
+                          <Button 
+                            onClick={handleAddProduct}
+                            className="w-full bg-green-600 hover:bg-green-700"
+                            disabled={selectedSpeed === 0}
+                          >
+                            <Plus className="mr-2 h-4 w-4" />
+                            Adicionar Produto
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </CardContent>
                 </Card>

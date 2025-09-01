@@ -131,7 +131,7 @@ export const NegotiationRounds: React.FC<NegotiationRoundsProps> = ({
                 <Label htmlFor="discount-reason" className="text-slate-300">Motivo do Desconto</Label>
                 <Input 
                   id="discount-reason"
-                  value={discountReason}
+                  value={discountReason || ''}
                   onChange={(e) => setDiscountReason(e.target.value)}
                   placeholder="Ex: Desconto de 5%"
                   className="mt-1 bg-slate-700 border-slate-600 text-white"
@@ -142,7 +142,7 @@ export const NegotiationRounds: React.FC<NegotiationRoundsProps> = ({
                 <Input 
                   id="discount-percentage"
                   type="number"
-                  value={negotiationDiscount}
+                  value={negotiationDiscount || 0}
                   onChange={(e) => setNegotiationDiscount(Number(e.target.value))}
                   min="0"
                   max="100"

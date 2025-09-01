@@ -67,7 +67,7 @@ export function ClientManagerForm({
                             <Label htmlFor="client-name">Nome do Cliente *</Label>
                             <Input
                                 id="client-name"
-                                value={clientData.name}
+                                value={clientData.name || ''}
                                 onChange={(e) => onClientDataChange({ ...clientData, name: e.target.value })}
                                 className="bg-slate-800 border-slate-700 text-white"
                                 placeholder="Nome completo do cliente"
@@ -78,7 +78,7 @@ export function ClientManagerForm({
                             <Label htmlFor="project-name">Nome do Projeto *</Label>
                             <Input
                                 id="project-name"
-                                value={clientData.projectName}
+                                value={clientData.projectName || ''}
                                 onChange={(e) => onClientDataChange({ ...clientData, projectName: e.target.value })}
                                 className="bg-slate-800 border-slate-700 text-white"
                                 placeholder="Nome do projeto"
@@ -90,7 +90,7 @@ export function ClientManagerForm({
                             <Input
                                 id="client-email"
                                 type="email"
-                                value={clientData.email}
+                                value={clientData.email || ''}
                                 onChange={(e) => onClientDataChange({ ...clientData, email: e.target.value })}
                                 className="bg-slate-800 border-slate-700 text-white"
                                 placeholder="email@cliente.com"
@@ -101,7 +101,7 @@ export function ClientManagerForm({
                             <Label htmlFor="client-phone">Telefone do Cliente</Label>
                             <Input
                                 id="client-phone"
-                                value={clientData.phone}
+                                value={clientData.phone || ''}
                                 onChange={(e) => onClientDataChange({ ...clientData, phone: e.target.value })}
                                 className="bg-slate-800 border-slate-700 text-white"
                                 placeholder="(11) 99999-9999"
@@ -120,7 +120,7 @@ export function ClientManagerForm({
                             <Label htmlFor="manager-name">Nome do Gerente *</Label>
                             <Input
                                 id="manager-name"
-                                value={accountManagerData.name}
+                                value={accountManagerData.name || ''}
                                 onChange={(e) => onAccountManagerDataChange({ ...accountManagerData, name: e.target.value })}
                                 className="bg-slate-800 border-slate-700 text-white"
                                 placeholder="Nome completo do gerente"
@@ -132,7 +132,7 @@ export function ClientManagerForm({
                             <Input
                                 id="manager-email"
                                 type="email"
-                                value={accountManagerData.email}
+                                value={accountManagerData.email || ''}
                                 onChange={(e) => onAccountManagerDataChange({ ...accountManagerData, email: e.target.value })}
                                 className="bg-slate-800 border-slate-700 text-white"
                                 placeholder="gerente@empresa.com"
@@ -143,7 +143,7 @@ export function ClientManagerForm({
                             <Label htmlFor="manager-phone">Telefone do Gerente</Label>
                             <Input
                                 id="manager-phone"
-                                value={accountManagerData.phone}
+                                value={accountManagerData.phone || ''}
                                 onChange={(e) => onAccountManagerDataChange({ ...accountManagerData, phone: e.target.value })}
                                 className="bg-slate-800 border-slate-700 text-white"
                                 placeholder="(11) 99999-9999"

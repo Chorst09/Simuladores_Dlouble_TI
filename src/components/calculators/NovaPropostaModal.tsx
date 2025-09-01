@@ -170,7 +170,7 @@ const NovaPropostaModal: React.FC<NovaPropostaModalProps> = ({
                   id="clientName"
                   type="text"
                   placeholder="Nome completo do cliente"
-                  value={formData.cliente.name}
+                  value={formData.cliente.name || ''}
                   onChange={(e) => handleClientChange('name', e.target.value)}
                   className="bg-[#0f172a] border-[#334155] text-white placeholder-gray-500 focus:border-blue-500 h-12"
                 />
@@ -187,7 +187,7 @@ const NovaPropostaModal: React.FC<NovaPropostaModalProps> = ({
                   id="projectName"
                   type="text"
                   placeholder="Nome do projeto"
-                  value={formData.cliente.projectName}
+                  value={formData.cliente.projectName || ''}
                   onChange={(e) => handleClientChange('projectName', e.target.value)}
                   className="bg-[#0f172a] border-[#334155] text-white placeholder-gray-500 focus:border-blue-500 h-12"
                 />
@@ -204,7 +204,7 @@ const NovaPropostaModal: React.FC<NovaPropostaModalProps> = ({
                   id="clientEmail"
                   type="email"
                   placeholder="email@cliente.com"
-                  value={formData.cliente.email}
+                  value={formData.cliente.email || ''}
                   onChange={(e) => handleClientChange('email', e.target.value)}
                   className="bg-[#0f172a] border-[#334155] text-white placeholder-gray-500 focus:border-blue-500 h-12"
                 />
@@ -221,7 +221,7 @@ const NovaPropostaModal: React.FC<NovaPropostaModalProps> = ({
                   id="clientPhone"
                   type="tel"
                   placeholder="(11) 99999-9999"
-                  value={formData.cliente.phone}
+                  value={formData.cliente.phone || ''}
                   onChange={(e) => handleClientChange('phone', e.target.value)}
                   className="bg-[#0f172a] border-[#334155] text-white placeholder-gray-500 focus:border-blue-500 h-12"
                 />
@@ -245,7 +245,7 @@ const NovaPropostaModal: React.FC<NovaPropostaModalProps> = ({
                   id="managerName"
                   type="text"
                   placeholder="Nome completo do gerente"
-                  value={formData.gerente.name}
+                  value={formData.gerente.name || ''}
                   onChange={(e) => handleManagerChange('name', e.target.value)}
                   className="bg-[#0f172a] border-[#334155] text-white placeholder-gray-500 focus:border-blue-500 h-12"
                 />
@@ -262,7 +262,7 @@ const NovaPropostaModal: React.FC<NovaPropostaModalProps> = ({
                   id="managerEmail"
                   type="email"
                   placeholder="gerente@empresa.com"
-                  value={formData.gerente.email}
+                  value={formData.gerente.email || ''}
                   onChange={(e) => handleManagerChange('email', e.target.value)}
                   className="bg-[#0f172a] border-[#334155] text-white placeholder-gray-500 focus:border-blue-500 h-12"
                 />
@@ -279,7 +279,7 @@ const NovaPropostaModal: React.FC<NovaPropostaModalProps> = ({
                   id="managerPhone"
                   type="tel"
                   placeholder="(11) 99999-9999"
-                  value={formData.gerente.phone}
+                  value={formData.gerente.phone || ''}
                   onChange={(e) => handleManagerChange('phone', e.target.value)}
                   className="bg-[#0f172a] border-[#334155] text-white placeholder-gray-500 focus:border-blue-500 h-12"
                 />

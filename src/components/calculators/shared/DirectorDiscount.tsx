@@ -100,7 +100,7 @@ export const DirectorDiscount: React.FC<DirectorDiscountProps> = ({
                             <Input
                                 id="director-discount"
                                 type="number"
-                                value={discount}
+                                value={discount || 0}
                                 onChange={(e) => handleDiscountChange(Number(e.target.value))}
                                 min="0"
                                 step="0.1"
@@ -115,7 +115,7 @@ export const DirectorDiscount: React.FC<DirectorDiscountProps> = ({
                             </Label>
                             <Input
                                 id="discount-reason"
-                                value={reason}
+                                value={reason || ''}
                                 onChange={(e) => setReason(e.target.value)}
                                 disabled={disabled}
                                 className="mt-1 bg-slate-700 border-slate-600 text-white"
